@@ -1,6 +1,6 @@
-import { RouteProp } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { Button, FlatList, Text, View,StyleSheet } from 'react-native';
+import { RouteProp,useFocusEffect} from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, FlatList, Text, View,StyleSheet,TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -26,8 +26,6 @@ type listData = {
     comment:string
 }
 
-
-
 const EntryList: React.FC<Props> = ({navigation}) => {
     const [entries, setEntries] = useState<listData [] | null>([]);
 
@@ -43,9 +41,10 @@ const EntryList: React.FC<Props> = ({navigation}) => {
     };
 
 
-    useEffect(() => {
-        fetchEntries();
-    }, [])
+    useFocusEffect(
+    useCallback(() => {
+        fetchEntries()
+    }, []))
 
 
 
@@ -67,10 +66,17 @@ const EntryList: React.FC<Props> = ({navigation}) => {
                 keyExtractor={(item:listData) => item.id}
                 renderItem = {({item})=>(
                     <View style={styles.datastyle}>
-                        <Text style={styles.textStyle}>{item.id}</Text>
+                        <TouchableOpacity
+                            style={styles.addButton}
+                            onPress={() => navigation.navigate('EntryEdit', {entryId: +item.id /*test*/})}>
+                        
                         <Text style={styles.textStyle}>{item.date.toString()}</Text>
                         <Text style={styles.textStyle}>{item.name}</Text>
-                        <Text style={styles.textStyle}>{item.amount} {item.currency}</Text>
+                        <Text style={styles.textStyle}>{item.amount} {item.currency}</Text>    
+                       
+    
+                    </TouchableOpacity>
+                        
                     </View>
                    
                 
@@ -101,6 +107,12 @@ const styles = StyleSheet.create({
     textStyle:{
         marginRight:5,
        
+    },
+    addButton:{
+        display:'flex',
+        flexDirection:'row',
+        borderRadius:20,
+        margin:10
     }
 
 })
