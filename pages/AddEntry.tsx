@@ -10,7 +10,9 @@ function AddEntry() {
         const amt = amount;
         const amountfinal = Number(amount);
 
-        const response = await fetch("https://2d0a-80-208-69-64.ngrok-free.app/entry",{
+        //https://b9a7-80-208-69-64.ngrok-free.app
+
+        const response = await fetch("https://b9a7-80-208-69-64.ngrok-free.app/entry",{
             method: 'post',
             headers: {
                 "Content-Type": "application/json"

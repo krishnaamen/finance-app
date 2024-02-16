@@ -29,7 +29,7 @@ type listData = {
 const EntryList: React.FC<Props> = ({navigation}) => {
     const [entries, setEntries] = useState<listData [] | null>([]);
 
-    const baseUrl = 'https://2d0a-80-208-69-64.ngrok-free.app'
+    const baseUrl = 'https://b9a7-80-208-69-64.ngrok-free.app'
     const fetchEntries = async () => {
     try {
         const response = await axios.get(baseUrl + '/entry');
@@ -46,8 +46,8 @@ const EntryList: React.FC<Props> = ({navigation}) => {
         fetchEntries()
     }, []))
 
-
-
+    
+    
 
     return (
 
@@ -68,9 +68,9 @@ const EntryList: React.FC<Props> = ({navigation}) => {
                     <View style={styles.datastyle}>
                         <TouchableOpacity
                             style={styles.addButton}
-                            onPress={() => navigation.navigate('EntryEdit', {entryId: +item.id /*test*/})}>
+                            onPress={() => navigation.navigate('EntryEdit', {entryId: +item.id})}>
                         
-                        <Text style={styles.textStyle}>{item.date.toString()}</Text>
+                        <Text style={styles.textStyle}>{item.date.toString().substring(0,10)}</Text>
                         <Text style={styles.textStyle}>{item.name}</Text>
                         <Text style={styles.textStyle}>{item.amount} {item.currency}</Text>    
                        
