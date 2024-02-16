@@ -1,14 +1,16 @@
 import React, { useEffect,useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import AddEntry from './AddEntry';
+import EntryList from './EntryList';
 import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 type RootStackParamList = {
     AddEntry:undefined;
+    EntryList:undefined;
     EntryEdit: { entryId: number };
     EntryDelete: { entryId: number };
   };
@@ -40,7 +42,6 @@ const id = route.params.entryId;
   const fetchEntry = async () => {
     try {
         const response = await axios.get(`https://b9a7-80-208-69-64.ngrok-free.app/entry/${id}`);
-        console.log(response.data); // Process the response data as needed
         setCurrentEntry(response.data);
     } catch (error) {
         console.error('Error fetching entries:', error);
@@ -52,35 +53,65 @@ const id = route.params.entryId;
     fetchEntry();
     
   },[])
-    
-    console.log(route.params.entryId);
-    
+
+  const handleUpdate = async () => {
+    // Make sure all fields are filled before updating
+    if (amount && name && comment) {
+      const updatedEntry = { ...currentEntry, amount: parseFloat(amount), name, comment };
+      try {
+        const response = await fetch(`https://b9a7-80-208-69-64.ngrok-free.app/entry/${id}`, {
+          method: 'patch',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedEntry),
+        });
+        const data = await response.json();
+        Alert.alert("Updated","Data updated successfully click ok to go back to the main page.",[
+          { text: 'OK', onPress: () => navigation.navigate('EntryList') }
+        ]);
+        
+        console.log('Updated entry:');
+      } catch (error) {
+        console.error('Error updating entry:', error);
+      }
+    } else {
+      Alert.alert('Please fill in all fields');
+    }
+  };
+
+
     return (
       <SafeAreaView>
         <View>
         <TextInput
         style={styles.input}
         placeholder={currentEntry?.amount.toString()}
-        value={(currentEntry?.amount)?.toString()}
+        value={amount}
         onChangeText={setAmount}
         
       />
       <TextInput
         style={styles.input}
         placeholder={currentEntry?.name}
-        value={(currentEntry?.name)?.toString()}
+        value={name}
         onChangeText={setName}
         
       />
       <TextInput
         style={styles.input}
         placeholder={currentEntry?.comment.toString()}
-        value={(currentEntry?.comment)?.toString()}
+        value={comment}
         onChangeText={setComment}
         
       />
+      <View style={styles.buttons}>
+      <Button onPress={handleUpdate} title='update Now' />
+      <Button onPress={handleUpdate} title='Delete' />
+      </View>
+          
 
-            <Button onPress={() => navigation.navigate('EntryDelete', { entryId: route.params.entryId } )} title="update"/>
+            {/*<Button onPress={() => navigation.navigate('EntryDelete', { entryId: route.params.entryId } )} title="update"/> */}
         </View>
         </SafeAreaView>
     );
@@ -112,5 +143,16 @@ const styles = StyleSheet.create({
       color:'white',
       fontSize:30,
      
+  },
+  buttons:{
+    display:'flex',
+    flexDirection:'row',
+    borderRadius:20,
+    margin:10,
+    justifyContent:'space-around'
+
+  },
+  updateDeleteBtn:{
+    borderRadius:10
   }
 })
