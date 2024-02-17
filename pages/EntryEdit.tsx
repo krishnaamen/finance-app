@@ -41,7 +41,7 @@ const id = route.params.entryId;
 
   const fetchEntry = async () => {
     try {
-        const response = await axios.get(`https://b9a7-80-208-69-64.ngrok-free.app/entry/${id}`);
+        const response = await axios.get(`https://ad49-80-208-69-64.ngrok-free.app/entry/${id}`);
         setCurrentEntry(response.data);
     } catch (error) {
         console.error('Error fetching entries:', error);
@@ -54,12 +54,40 @@ const id = route.params.entryId;
     
   },[])
 
+  const handleDelete = () => {
+    Alert.alert('Delete Confirmation', 'Are you sure you want to delete this entry', [
+      {
+        text: 'Cancel',
+        onPress: () => navigation.navigate('EntryList'),
+        style: 'cancel'
+      },
+      {text: 'OK', onPress: async () => {
+
+
+        try {
+          const response = await fetch(`https://ad49-80-208-69-64.ngrok-free.app/entry/${id}`, {
+            method: 'delete',
+          });
+          navigation.navigate('EntryList');
+          }catch(e){
+        console.log(e);
+
+      }
+      
+    }
+
+
+      }
+
+  ])}
+ 
+
   const handleUpdate = async () => {
     // Make sure all fields are filled before updating
     if (amount && name && comment) {
       const updatedEntry = { ...currentEntry, amount: parseFloat(amount), name, comment };
       try {
-        const response = await fetch(`https://b9a7-80-208-69-64.ngrok-free.app/entry/${id}`, {
+        const response = await fetch(`https://ad49-80-208-69-64.ngrok-free.app/entry/${id}`, {
           method: 'patch',
           headers: {
             'Content-Type': 'application/json',
@@ -107,7 +135,7 @@ const id = route.params.entryId;
       />
       <View style={styles.buttons}>
       <Button onPress={handleUpdate} title='update Now' />
-      <Button onPress={handleUpdate} title='Delete' />
+      <Button onPress={handleDelete} title='Delete' />
       </View>
           
 

@@ -12,7 +12,7 @@ function AddEntry() {
 
         //https://b9a7-80-208-69-64.ngrok-free.app
 
-        const response = await fetch("https://b9a7-80-208-69-64.ngrok-free.app/entry",{
+        const response = await fetch("https://ad49-80-208-69-64.ngrok-free.app/entry",{
             method: 'post',
             headers: {
                 "Content-Type": "application/json"

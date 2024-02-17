@@ -29,7 +29,7 @@ type listData = {
 const EntryList: React.FC<Props> = ({navigation}) => {
     const [entries, setEntries] = useState<listData [] | null>([]);
 
-    const baseUrl = 'https://b9a7-80-208-69-64.ngrok-free.app'
+    const baseUrl = 'https://ad49-80-208-69-64.ngrok-free.app'
     const fetchEntries = async () => {
     try {
         const response = await axios.get(baseUrl + '/entry');
