@@ -23,13 +23,14 @@ type listData = {
     date: string,
     currency:string,
     name: string,
+    category:string,
     comment:string
 }
 
 const EntryList: React.FC<Props> = ({navigation}) => {
     const [entries, setEntries] = useState<listData [] | null>([]);
 
-    const baseUrl = 'https://ad49-80-208-69-64.ngrok-free.app'
+    const baseUrl = 'https://2563-80-208-69-64.ngrok-free.app'
     const fetchEntries = async () => {
     try {
         const response = await axios.get(baseUrl + '/entry');
@@ -70,8 +71,9 @@ const EntryList: React.FC<Props> = ({navigation}) => {
                             style={styles.addButton}
                             onPress={() => navigation.navigate('EntryEdit', {entryId: +item.id})}>
                         
-                        <Text style={styles.textStyle}>{item.date.toString().substring(0,10)}</Text>
+                        <Text style={styles.datestyle}>{item.date.toString().substring(0,10)}</Text>
                         <Text style={styles.textStyle}>{item.name}</Text>
+                        <Text style={styles.textStyle}>{item.category}</Text>
                         <Text style={styles.textStyle}>{item.amount} {item.currency}</Text>    
                        
     
@@ -108,6 +110,12 @@ const styles = StyleSheet.create({
         marginRight:5,
        
     },
+    datestyle:{
+        fontSize:15,
+        fontWeight:'bold',
+        marginRight:5
+    },
+
     addButton:{
         display:'flex',
         flexDirection:'row',

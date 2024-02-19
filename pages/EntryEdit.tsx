@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, StyleSheet,TextInput, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import AddEntry from './AddEntry';
@@ -20,6 +20,7 @@ type entry = {
     date: string,
     currency:string,
     name: string,
+    category:string,
     comment:string
 }
 
@@ -36,12 +37,13 @@ const [currentEntry, setCurrentEntry] = useState<entry |null>(null)
 const [name, setName] = useState('');
 const [amount, setAmount] = useState('');
 const [comment, setComment] = useState('');
+const [category,setCategory] = useState('');
 const id = route.params.entryId;
 
 
   const fetchEntry = async () => {
     try {
-        const response = await axios.get(`https://ad49-80-208-69-64.ngrok-free.app/entry/${id}`);
+        const response = await axios.get(`https://2563-80-208-69-64.ngrok-free.app/entry/${id}`);
         setCurrentEntry(response.data);
     } catch (error) {
         console.error('Error fetching entries:', error);
@@ -65,7 +67,7 @@ const id = route.params.entryId;
 
 
         try {
-          const response = await fetch(`https://ad49-80-208-69-64.ngrok-free.app/entry/${id}`, {
+          const response = await fetch(`https://2563-80-208-69-64.ngrok-free.app/entry/${id}`, {
             method: 'delete',
           });
           navigation.navigate('EntryList');
@@ -85,9 +87,9 @@ const id = route.params.entryId;
   const handleUpdate = async () => {
     // Make sure all fields are filled before updating
     if (amount && name && comment) {
-      const updatedEntry = { ...currentEntry, amount: parseFloat(amount), name, comment };
+      const updatedEntry = { ...currentEntry, amount: parseFloat(amount), name, comment,category };
       try {
-        const response = await fetch(`https://ad49-80-208-69-64.ngrok-free.app/entry/${id}`, {
+        const response = await fetch(`https://2563-80-208-69-64.ngrok-free.app/entry/${id}`, {
           method: 'patch',
           headers: {
             'Content-Type': 'application/json',
@@ -124,6 +126,13 @@ const id = route.params.entryId;
         placeholder={currentEntry?.name}
         value={name}
         onChangeText={setName}
+        
+      />
+      <TextInput
+        style={styles.input}
+        placeholder={currentEntry?.category}
+        value={category}
+        onChangeText={setCategory}
         
       />
       <TextInput

@@ -5,6 +5,7 @@ function AddEntry() {
     const [name, setName] = useState('');
     const [amount, setAmount] = useState('');
     const [comment, setComment] = useState('');
+    const [category,setCategory] = useState('');
     
     const addEntry = async() => {
         const amt = amount;
@@ -12,7 +13,8 @@ function AddEntry() {
 
         //https://b9a7-80-208-69-64.ngrok-free.app
 
-        const response = await fetch("https://ad49-80-208-69-64.ngrok-free.app/entry",{
+      try{
+        const response = await fetch("https://2563-80-208-69-64.ngrok-free.app/entry",{
             method: 'post',
             headers: {
                 "Content-Type": "application/json"
@@ -22,19 +24,27 @@ function AddEntry() {
                 comment:comment,
                 currency:"DKK",
                 date:new Date().toISOString(),
+                category: category,
                 name:name
             })
         })
-
         const newresponse = await response.json();
         console.log(newresponse);
 
+      } 
+      catch (error) {
+        console.error('Error updating entry:', error);
+      }
+        
+        
 
 
+      navigation.navigate('EntryList')
         console.log(name,amount,comment);
         setName("");
         setAmount("");
         setComment("");
+        setCategory("");
 
     }
 
@@ -46,6 +56,12 @@ function AddEntry() {
         onChangeText={setName}
         value={name}
         placeholder="Enty name"
+      />
+    <TextInput
+        style={styles.input}
+        onChangeText={setCategory}
+        value={category}
+        placeholder="Enty Category"
       />
        <TextInput
         style={styles.input}
