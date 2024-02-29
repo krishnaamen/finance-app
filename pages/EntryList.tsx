@@ -10,6 +10,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store/store";
+import { Entry } from '../entities/entry';
+import { createEntry, fetchEntries } from '../store/entrySlice';
+import { CreateEntryDTO } from '../entities/CreateEntryDTO';
+
+
+
 type RootStackParamList = {
     AddEntry: undefined;
     EntryEdit: { entryId: number };
@@ -21,36 +29,20 @@ type DetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Entr
 type Props = {
     navigation: DetailsScreenNavigationProp;
 };
-type listData = {
-    id: string,
-    amount: string,
-    date: string,
-    currency: string,
-    name: string,
-    category: string,
-    description: string
-}
+
 
 const EntryList: React.FC<Props> = ({ navigation }) => {
-    const [entries, setEntries] = useState<listData[]>([]);
+    const entries = useSelector(
+        (state: RootState) => state.entries.entries
+    )
+
+    const dispatch = useDispatch<AppDispatch>();
 
 
-    const fetchEntries = async () => {
-        try {
-            const response = await axios.get(BASE_URL + '/entries');
-            console.log(response.data);
-            const data = await response.data; // Process the response data as needed
-            setEntries(data);
-        } catch (error) {
-            console.error('Error fetching entries:', error);
-        }
-    };
 
-
-    useFocusEffect(
-        useCallback(() => {
-            fetchEntries()
-        }, []))
+    useEffect(() => {
+        dispatch(fetchEntries())
+    }, [])
 
 
 
@@ -70,7 +62,7 @@ const EntryList: React.FC<Props> = ({ navigation }) => {
                 <Text>Entry-list</Text>
                 <FlatList
                     data={entries}
-                    keyExtractor={(item: listData) => item.id.toString()}
+                    keyExtractor={(item: Entry) => item.id.toString()}
                     renderItem={({ item }) => (
                         <View style={styles.datastyle}>
                             <TouchableOpacity

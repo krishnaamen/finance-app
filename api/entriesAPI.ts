@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Entry } from '../entities/entry'
-import { entryDTO } from '../entities/CreateEntryDTO'
+import { CreateEntryDTO } from '../entities/CreateEntryDTO'
 import { BASE_URL } from '../config'
 
 export class EntryAPI {
@@ -10,8 +10,9 @@ export class EntryAPI {
         const response = await axios.get (this.baseUrl);
         return response.data;
     }
-    static async createEntry(entry: entryDTO){
+    static async createEntry(entry: CreateEntryDTO){
         const response = await axios.post(this.baseUrl, entry);
         return response.data;
     }
+    
 }
