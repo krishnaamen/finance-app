@@ -1,11 +1,12 @@
 import React, { useEffect,useState } from 'react';
-import { Alert, Button, StyleSheet,TextInput, View } from 'react-native';
+import { Alert, BackHandler, Button, StyleSheet,TextInput, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import AddEntry from './AddEntry';
 import EntryList from './EntryList';
 import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { BASE_URL } from '../config';
 
 
 type RootStackParamList = {
@@ -21,7 +22,7 @@ type entry = {
     currency:string,
     name: string,
     category:string,
-    comment:string
+    description:string
 }
 
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'EntryEdit'>;
@@ -43,7 +44,7 @@ const id = route.params.entryId;
 
   const fetchEntry = async () => {
     try {
-        const response = await axios.get(`https://2563-80-208-69-64.ngrok-free.app/entry/${id}`);
+        const response = await axios.get(`${BASE_URL}/entries/${id}`);
         setCurrentEntry(response.data);
     } catch (error) {
         console.error('Error fetching entries:', error);
@@ -67,7 +68,7 @@ const id = route.params.entryId;
 
 
         try {
-          const response = await fetch(`https://2563-80-208-69-64.ngrok-free.app/entry/${id}`, {
+          const response = await fetch(`${BASE_URL}/entry/${id}`, {
             method: 'delete',
           });
           navigation.navigate('EntryList');
@@ -89,7 +90,7 @@ const id = route.params.entryId;
     if (amount && name && comment) {
       const updatedEntry = { ...currentEntry, amount: parseFloat(amount), name, comment,category };
       try {
-        const response = await fetch(`https://2563-80-208-69-64.ngrok-free.app/entry/${id}`, {
+        const response = await fetch(`${BASE_URL}/entries/${id}`, {
           method: 'patch',
           headers: {
             'Content-Type': 'application/json',
@@ -137,7 +138,7 @@ const id = route.params.entryId;
       />
       <TextInput
         style={styles.input}
-        placeholder={currentEntry?.comment.toString()}
+        placeholder={currentEntry?.description.toString()}
         value={comment}
         onChangeText={setComment}
         
