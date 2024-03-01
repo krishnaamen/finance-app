@@ -3,7 +3,6 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { Entry } from "../entities/entry";
 import { EntryAPI } from "../api/entriesAPI";
 import { CreateEntryDTO} from "../entities/CreateEntryDTO";
-import { act } from "react-test-renderer";
 
 
 export interface EntryState {

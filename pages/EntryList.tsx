@@ -13,6 +13,7 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { Entry } from '../entities/entry';
+import { EntryItem} from '../components/EntryItem'
 import { createEntry, fetchEntries } from '../store/entrySlice';
 import { CreateEntryDTO } from '../entities/CreateEntryDTO';
 
@@ -44,7 +45,7 @@ const EntryList: React.FC<Props> = ({ navigation }) => {
         dispatch(fetchEntries())
     }, [])
 
-
+console.log("entries",entries)
 
 
     return (
@@ -64,19 +65,13 @@ const EntryList: React.FC<Props> = ({ navigation }) => {
                     data={entries}
                     keyExtractor={(item: Entry) => item.id.toString()}
                     renderItem={({ item }) => (
+                        
                         <View style={styles.datastyle}>
                             <TouchableOpacity
                                 style={styles.addButton}
                                 onPress={() => navigation.navigate('EntryEdit', { entryId: +item.id })}>
-
-                                <Text style={styles.datestyle}>{item?.date?.toString().substring(0, 10)}</Text>
-                                <Text style={styles.textStyle}>{item?.name}</Text>
-                                <Text style={styles.textStyle}>{item?.amount} {item.currency}</Text>
-
-                                <Ionicons name="trash" size={22} color="red" />
-                                <FontAwesome name="edit" size={22} color="blue" />
-
-
+                                   
+                                <EntryItem name={item?.name} date={new Date().toString().substring(0,15)} amount={item?.amount} category={item?.category?.name} description={item?.description}   />
                             </TouchableOpacity>
 
                         </View>

@@ -1,3 +1,4 @@
+import { Category } from "./category";
 
   export class CreateEntryDTO {
     amount: number;
@@ -5,7 +6,7 @@
     currency: string;
     name: string;
     description: string;
-    category:number;
+    category:string;
   
     constructor(
       amount: number,
@@ -13,7 +14,7 @@
       currency: string,
       name: string,
       description: string,
-      category: number
+      category: string
     ) {
       this.amount = amount;
       this.date = date;

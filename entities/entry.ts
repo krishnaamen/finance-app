@@ -1,15 +1,17 @@
+import { Category } from "./category";
+
 export class Entry {
 
     id: number;
-    date: Date;
+    date: string;
     amount: number;
     currency: string;
     name: string;
     description: string;
-    category: number;
+    category: string;
 
 
-    constructor(id: number, date:Date,amount: number, currency: string, name: string, description: string, category: number) {
+    constructor(id: number, date: string,amount: number, currency: string, name: string, description: string, category: string) {
         this.id = id;
         this.date = date;
         this.amount = amount;
