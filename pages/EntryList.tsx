@@ -34,12 +34,8 @@ type Props = {
 
 const EntryList: React.FC<Props> = ({ navigation }) => {
     const entries = useSelector(
-        (state: RootState) => state.entries.entries
-    )
-
+        (state: RootState) => state.entries.entries)
     const dispatch = useDispatch<AppDispatch>();
-
-
 
     useEffect(() => {
         dispatch(fetchEntries())
@@ -71,7 +67,7 @@ console.log("entries",entries)
                                 style={styles.addButton}
                                 onPress={() => navigation.navigate('EntryEdit', { entryId: +item.id })}>
                                    
-                                <EntryItem name={item?.name} date={new Date().toString().substring(0,15)} amount={item?.amount} category={item?.category?.name} description={item?.description}   />
+                                <EntryItem name={item?.name} date={new Date().toString().substring(0,15)} amount={item?.amount} categoryname={item?.category?.name} description={item?.description}   />
                             </TouchableOpacity>
 
                         </View>
@@ -98,7 +94,7 @@ const styles = StyleSheet.create({
     datastyle: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         margin: 5
     },
     textStyle: {

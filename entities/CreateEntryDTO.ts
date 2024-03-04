@@ -6,7 +6,7 @@ import { Category } from "./category";
     currency: string;
     name: string;
     description: string;
-    category:string;
+    category:number;
   
     constructor(
       amount: number,
@@ -14,7 +14,7 @@ import { Category } from "./category";
       currency: string,
       name: string,
       description: string,
-      category: string
+      category: number
     ) {
       this.amount = amount;
       this.date = date;

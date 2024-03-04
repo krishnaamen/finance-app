@@ -12,8 +12,8 @@ function AddEntry() {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [catId, setCatId] = useState(5)
+  const [category, setCategory] = useState<number>(5);
+  const [catId, setCatId] = useState<number>()
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -25,11 +25,11 @@ function AddEntry() {
         <Picker
           selectedValue={category}
           onValueChange={(itemValue) => setCategory(itemValue)}>
-          <Picker.Item label="Food" value="1" />
-          <Picker.Item label="Transport" value="2" />
-          <Picker.Item label="Entertainment" value="3" />
-          <Picker.Item label="Bills" value="4" />
-          <Picker.Item label="Others" value="5" />
+          <Picker.Item label="Food" value={1} />
+          <Picker.Item label="Transport" value={2} />
+          <Picker.Item label="Entertainment" value={3} />
+          <Picker.Item label="Bills" value={4} />
+          <Picker.Item label="Others" value={5} />
         </Picker>
 
         

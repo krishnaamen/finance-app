@@ -1,4 +1,4 @@
-export const  BASE_URL = 'https://da77-80-208-69-64.ngrok-free.app'
+export const  BASE_URL = 'https://d5fa-5-179-80-205.ngrok-free.app'
 
 export enum CategoryEnum{
     food='food',

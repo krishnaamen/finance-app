@@ -6,12 +6,12 @@ type EntryItemProps = {
   name: string;
   amount: number;
   date: string;
-  category: string;
+  categoryname: string;
   description: string;
 };
 
 export const EntryItem = (props: EntryItemProps) => {
-  const { name, amount, date, description, category } = props;
+  const { name, amount, date, description, categoryname } = props;
 
   return (
     <View style={styles.entryItemContainer}>
@@ -22,7 +22,7 @@ export const EntryItem = (props: EntryItemProps) => {
           <FontAwesome style={styles.icon} name="edit" size={22} color="blue" />
         </View>
       </View>
-      <Text style={styles.category}>{category}</Text>
+      <Text style={styles.category}>{categoryname}</Text>
       <Text style={styles.date}>{date}</Text>
       <Text style={styles.amount}>{amount} DKK</Text>
       <Text style={styles.description}>{description}</Text>
