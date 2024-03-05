@@ -71,7 +71,7 @@ console.log("entries",entries)
                                 style={styles.addButton}
                                 onPress={() => navigation.navigate('EntryEdit', { entryId: +item.id })}>
                                    
-                                <EntryItem name={item?.name} date={new Date().toString().substring(0,15)} amount={item?.amount} category={item?.category?.name} description={item?.description}   />
+                                <EntryItem name={item?.name} date={new Date().toString().substring(0,15)} amount={item?.amount} description={item?.description} category={item?.category}/>
                             </TouchableOpacity>
 
                         </View>

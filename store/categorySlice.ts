@@ -14,7 +14,7 @@ const initialState: CategoryState = {
 
 // create the thunk to make async call, the whole react toolkit is synchronous.
 export const fetchCategories = createAsyncThunk(
-    'fetchCaterories',
+    'fetchCategories',
     async (thunkAPI)=> {
         return await CategoriesAPI.fetchAll();
     }
@@ -36,7 +36,7 @@ export const categorySlice = createSlice({
     extraReducers:(builder) => {
         builder.addCase(fetchCategories.fulfilled,(state,action) =>{
             state.categories = action.payload;
-        }),
+        })
         builder.addCase(createCategory.fulfilled,(state,action) =>{
             state.categories.push(action.payload)
         })
