@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   icons: {
     flexDirection: "row",
-    justifyContent:'space-between',
+    justifyContent: "space-between",
   },
   category: {
     color: "#555",
@@ -79,9 +79,9 @@ const styles = StyleSheet.create({
     color: "#444",
     fontSize: 16,
   },
-  icon:{
-    display:'flex',
-    padding:5,
-    margin:5,
-  }
+  icon: {
+    display: "flex",
+    padding: 5,
+    margin: 5,
+  },
 });

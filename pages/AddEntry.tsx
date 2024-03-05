@@ -1,39 +1,42 @@
-import React, { useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
-import { BASE_URL, CategoryEnum } from '../config';
-import { Picker } from '@react-native-picker/picker';
-import { CreateEntryDTO } from '../entities/CreateEntryDTO';
-import { createEntry } from '../store/entrySlice';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import { BASE_URL, CategoryEnum } from "../config";
+import { Picker } from "@react-native-picker/picker";
+import { CreateEntryDTO } from "../entities/CreateEntryDTO";
+import { createEntry } from "../store/entrySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 
-
 function AddEntry() {
-  const [name, setName] = useState('');
-  const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
-  const [catId, setCatId] = useState(5)
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [catId, setCatId] = useState(5);
 
   const dispatch = useDispatch<AppDispatch>();
-
 
   return (
     <SafeAreaView>
       <View>
-
         <Picker
           selectedValue={category}
-          onValueChange={(itemValue) => setCategory(itemValue)}>
+          onValueChange={(itemValue) => setCategory(itemValue)}
+        >
           <Picker.Item label="Food" value="1" />
           <Picker.Item label="Transport" value="2" />
           <Picker.Item label="Entertainment" value="3" />
           <Picker.Item label="Bills" value="4" />
           <Picker.Item label="Others" value="5" />
         </Picker>
-
-        
-
 
         <TextInput
           style={styles.input}
@@ -42,13 +45,12 @@ function AddEntry() {
           placeholder="Enty name"
         />
 
-
         <TextInput
           style={styles.input}
           onChangeText={setAmount}
           value={amount}
           placeholder="Amount"
-          keyboardType='numeric'
+          keyboardType="numeric"
         />
 
         <TextInput
@@ -64,28 +66,32 @@ function AddEntry() {
 
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => dispatch(createEntry(new CreateEntryDTO(Number(amount),new Date(),"DKK",name,description,category)))}>
-
+          onPress={() =>
+            dispatch(
+              createEntry(
+                new CreateEntryDTO(
+                  Number(amount),
+                  new Date(),
+                  "DKK",
+                  name,
+                  description,
+                  category,
+                ),
+              ),
+            )
+          }
+        >
           <Text style={styles.buttonText}>Create Entry</Text>
-
         </TouchableOpacity>
-
-
-       
       </View>
-
-
     </SafeAreaView>
-
-  )
+  );
 }
 
-export default AddEntry
+export default AddEntry;
 
 const styles = StyleSheet.create({
-  container: {
-
-  },
+  container: {},
   input: {
     height: 40,
     margin: 12,
@@ -93,17 +99,15 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   addButton: {
-    display: 'flex',
+    display: "flex",
     borderRadius: 20,
     backgroundColor: "#2c6979",
-    margin: 10
+    margin: 10,
   },
   buttonText: {
     padding: 20,
-    marginLeft: '25%',
-    color: 'white',
+    marginLeft: "25%",
+    color: "white",
     fontSize: 30,
-
   },
-
-})
+});
