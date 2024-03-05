@@ -1,27 +1,19 @@
-import { RouteProp, useFocusEffect } from "@react-navigation/native";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import {
   Button,
   FlatList,
-  Text,
   View,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AddEntry from "./AddEntry";
-import { BASE_URL } from "../config";
-import { ScrollView } from "react-native-gesture-handler";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { Entry } from "../entities/entry";
 import { EntryItem } from "../components/EntryItem";
-import { createEntry, fetchEntries } from "../store/entrySlice";
-import { CreateEntryDTO } from "../entities/CreateEntryDTO";
+import { fetchEntries } from "../store/entrySlice";
 
 type RootStackParamList = {
   AddEntry: undefined;
@@ -43,11 +35,10 @@ const EntryList: React.FC<Props> = ({ navigation }) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(fetchEntries());
   }, []);
-
-  console.log("entries", entries);
+  console.log(entries)
 
   return (
     <SafeAreaView>
@@ -57,7 +48,6 @@ const EntryList: React.FC<Props> = ({ navigation }) => {
           onPress={() => navigation.navigate("AddEntry")}
         />
 
-        <Text>Entry-list</Text>
         <FlatList
           data={entries}
           keyExtractor={(item: Entry) => item.id.toString()}
@@ -93,7 +83,6 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "90%",
   },
   datastyle: {
     display: "flex",

@@ -6,21 +6,19 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Alert,
+  Button,
 } from "react-native";
-import { BASE_URL, CategoryEnum } from "../config";
 import { Picker } from "@react-native-picker/picker";
 import { CreateEntryDTO } from "../entities/CreateEntryDTO";
 import { createEntry } from "../store/entrySlice";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/store";
 
 function AddEntry() {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [catId, setCatId] = useState(5);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -58,9 +56,6 @@ function AddEntry() {
           onChangeText={setDescription}
           value={description}
           placeholder="Comment"
-          editable
-          multiline
-          numberOfLines={4}
           maxLength={40}
         />
 

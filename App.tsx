@@ -24,11 +24,19 @@ type RootStackParamList = {
 
 const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
 function StackNavigationEntry() {
   return (
-    <Stack.Navigator initialRouteName="EntryList">
+    <Stack.Navigator
+      initialRouteName="EntryList"
+      screenOptions={({ route }) => ({
+        headerTitle: {
+          AddEntry: 'Add Entry',
+          EntryList: 'Entry List',
+          EntryEdit: 'Entry Edit',
+          EntryDelete: 'Entry Delete'
+        }[route.name]
+      })}>
       <Stack.Screen name="EntryList" component={EntryList} />
       <Stack.Screen name="EntryEdit" component={EntryEdit} />
       <Stack.Screen name="AddEntry" component={AddEntry} />
@@ -36,7 +44,7 @@ function StackNavigationEntry() {
       <Stack.Screen
         name="EntryDelete"
         component={EntryDelete}
-        options={({ navigation }) => ({
+        options={() => ({
           headerRight: () => (
             <Button
               onPress={() => Alert.alert("For real? :-o")}
@@ -54,7 +62,6 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        {/* <View style={styles.container}> */}
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -78,31 +85,14 @@ export default function App() {
             },
             tabBarActiveTintColor: "tomato",
             tabBarInactiveTintColor: "gray",
+            headerShown: false
           })}
         >
           <Tab.Screen name="Entries" component={StackNavigationEntry} />
           <Tab.Screen name="Profile" component={Categories} />
         </Tab.Navigator>
-
-        {/* <Drawer.Navigator initialRouteName="Home">
-         <Drawer.Screen name="Home" component={EntryList} />
-         <Drawer.Screen name="About" component={About} />
-       </Drawer.Navigator> */}
-
-        {/* <Text>Open up App.js to start working on your app!</Text>
-        <EntryList />
-        {/* </View> */}
       </NavigationContainer>
       <StatusBar style="auto" />
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

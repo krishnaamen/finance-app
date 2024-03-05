@@ -1,4 +1,4 @@
-export const BASE_URL = "https://da77-80-208-69-64.ngrok-free.app";
+export const BASE_URL = "http://localhost:3000";
 
 export enum CategoryEnum {
   food = "food",
