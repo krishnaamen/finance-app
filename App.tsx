@@ -60,15 +60,20 @@ export default function App() {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName: React.ComponentProps<typeof Ionicons>["name"];
 
-              if (route.name === "Entries") {
-                iconName = focused ? "cash" : "cash-outline";
-              } else if (route.name === "Profile") {
-                iconName = focused ? "settings" : "settings-outline";
-              } else {
-                iconName = "alert"; // Default icon, make sure this is valid
+              switch (route.name) {
+                case "Entries": {
+                  iconName = focused ? "cash" : "cash-outline";
+                  break
+                }
+                case "Profile": {
+                  iconName = focused ? "settings" : "settings-outline";
+                  break
+                }
+                default: {
+                  throw new Error("unknown route")
+                }
               }
 
-              // Now iconName is explicitly a valid icon key, no error should be thrown
               return <Ionicons name={iconName} size={size} color={color} />;
             },
             tabBarActiveTintColor: "tomato",
