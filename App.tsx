@@ -8,50 +8,49 @@ import EntryDelete from "./pages/EntryDelete";
 import AddEntry from "./pages/AddEntry";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Profile from "./pages/Profile";
-// import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import About from "./pages/About";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { Categories } from "./pages/Categories";
 
+type RootStackParamList = {
+  AddEntry: undefined;
+  EntryList: undefined;
+  EntryEdit: { entryId: number };
+  EntryDelete: { entryId: number };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
+function StackNavigationEntry() {
+  return (
+    <Stack.Navigator initialRouteName="EntryList">
+      <Stack.Screen name="EntryList" component={EntryList} />
+      <Stack.Screen name="EntryEdit" component={EntryEdit} />
+      <Stack.Screen name="AddEntry" component={AddEntry} />
+
+      <Stack.Screen
+        name="EntryDelete"
+        component={EntryDelete}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <Button
+              onPress={() => Alert.alert("For real? :-o")}
+              title="DELETE"
+              color="red"
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
-  type RootStackParamList = {
-    AddEntry: undefined;
-    EntryList: undefined;
-    EntryEdit: { entryId: number };
-    EntryDelete: { entryId: number };
-  };
-
-  const Stack = createStackNavigator<RootStackParamList>();
-  const Tab = createBottomTabNavigator();
-  // const Drawer = createDrawerNavigator(); // This generates an error???
-  // sift+option+F to preeter
-
-  function StackNavigationEntry() {
-    return (
-      <Stack.Navigator initialRouteName="EntryList">
-        <Stack.Screen name="EntryList" component={EntryList} />
-        <Stack.Screen name="EntryEdit" component={EntryEdit} />
-        <Stack.Screen name="AddEntry" component={AddEntry} />
-
-        <Stack.Screen
-          name="EntryDelete"
-          component={EntryDelete}
-          options={({ navigation }) => ({
-            headerRight: () => (
-              <Button
-                onPress={() => Alert.alert("For real? :-o")}
-                title="DELETE"
-                color="red"
-              />
-            ),
-          })}
-        />
-      </Stack.Navigator>
-    );
-  }
-
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -87,9 +86,9 @@ export default function App() {
 
         {/* <Text>Open up App.js to start working on your app!</Text>
         <EntryList />
-        <StatusBar style="auto" /> */}
         {/* </View> */}
       </NavigationContainer>
+      <StatusBar style="auto" />
     </Provider>
   );
 }
