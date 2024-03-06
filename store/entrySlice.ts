@@ -13,14 +13,14 @@ const initialState: EntryState = {
 
 export const fetchEntries = createAsyncThunk(
   "fetchEntries",
-  async (thunkAPI) => {
+  async () => {
     return await EntryAPI.fetchAllEntries();
   },
 );
 
 export const createEntry = createAsyncThunk(
   "createEntry",
-  async (entry: CreateEntryDTO, thunkAPI) => {
+  async (entry: CreateEntryDTO) => {
     return await EntryAPI.createEntry(entry);
   },
 );
@@ -32,10 +32,10 @@ export const entrySlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchEntries.fulfilled, (state, action) => {
       state.entries = action.payload;
-    }),
-      builder.addCase(createEntry.fulfilled, (state, action) => {
-        state.entries.push(action.payload);
-      });
+    });
+    builder.addCase(createEntry.fulfilled, (state, action) => {
+      state.entries.push(action.payload);
+    });
   },
 });
 

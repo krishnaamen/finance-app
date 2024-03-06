@@ -1,7 +1,6 @@
 import axios from "axios";
 import { CreateEntryDTO } from "../entities/CreateEntryDTO";
 import { BASE_URL } from "../config";
-import { Entry } from "../entities/entry";
 
 export class EntryAPI {
   static baseUrl = BASE_URL + "/entries";
