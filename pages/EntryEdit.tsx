@@ -12,7 +12,7 @@ import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BASE_URL } from "../config";
 import {useDispatch} from "react-redux";
-import {deleteEntry} from "../store/entrySlice";
+import {deleteEntry, updateEntry} from "../store/entrySlice";
 import {AppDispatch} from "../store/store";
 
 export type RootStackParamList = {
@@ -46,7 +46,7 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
   const [currentEntry, setCurrentEntry] = useState<entry | null>(null);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
-  const [comment, setComment] = useState("");
+  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const id = route.params.entryId;
 
@@ -87,31 +87,21 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
   };
 
   const handleUpdate = async () => {
-    // Make sure all fields are filled before updating
-    if (amount && name && comment) {
+    if (amount && name && description) {
       const updatedEntry = {
         ...currentEntry,
         amount: parseFloat(amount),
         name,
-        comment,
+        description,
         category,
       };
       try {
-        const response = await fetch(`${BASE_URL}/entries/${id}`, {
-          method: "patch",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedEntry),
-        });
-        const data = await response.json();
+        await dispatch(updateEntry({id, entity: updatedEntry}));
         Alert.alert(
           "Updated",
           "Data updated successfully click ok to go back to the main page.",
           [{ text: "OK", onPress: () => navigation.navigate("EntryList") }],
         );
-
-        console.log("Updated entry:");
       } catch (error) {
         console.error("Error updating entry:", error);
       }
@@ -144,15 +134,13 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
         <TextInput
           style={styles.input}
           placeholder={currentEntry?.description.toString()}
-          value={comment}
-          onChangeText={setComment}
+          value={description}
+          onChangeText={setDescription}
         />
         <View style={styles.buttons}>
           <Button onPress={handleUpdate} title="Update now" />
           <Button onPress={handleDelete} title="Delete" />
         </View>
-
-        {/*<Button onPress={() => navigation.navigate('EntryDelete', { entryId: route.params.entryId } )} title="update"/> */}
       </View>
     </SafeAreaView>
   );

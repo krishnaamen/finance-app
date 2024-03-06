@@ -30,6 +30,12 @@ export const deleteEntry = createAsyncThunk(
     return await EntryAPI.deleteEntry(id);
   },
 );
+export const updateEntry = createAsyncThunk(
+  "updateEntry",
+  async ({id, entity} : any) => {
+    return await EntryAPI.updateEntry(id, entity);
+  },
+);
 
 export const entrySlice = createSlice({
   name: "entry",
@@ -46,6 +52,14 @@ export const entrySlice = createSlice({
       state.entries = state.entries.filter(
         (entry) => String(entry.id) !== action.payload.id
         );
+    });
+    builder.addCase(updateEntry.fulfilled, (state, action) => {
+        state.entries = state.entries.map((entry) => {
+            if (String(entry.id) === action.payload.id) {
+            return action.payload;
+            }
+            return entry;
+        });
     });
   }
 });
