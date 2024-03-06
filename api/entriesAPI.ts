@@ -22,6 +22,7 @@ export class EntryAPI {
 
   static async updateEntry(id: string, entity: any) {
     const response = await axios.put(`${this.baseUrl}/${id}`, entity);
+    response.data.id = id
     return response.data;
   }
 }

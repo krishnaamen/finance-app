@@ -52,8 +52,8 @@ export const entrySlice = createSlice({
     });
     builder.addCase(updateEntry.fulfilled, (state, action) => {
       state.entries = state.entries.map((entry) => {
-        if (String(entry.id) === action.payload.id) {
-          return action.payload;
+        if (entry.id === action.meta.arg.id) {
+          return action.meta.arg.entity;
         }
         return entry;
       });
@@ -61,5 +61,5 @@ export const entrySlice = createSlice({
   },
 });
 
-export const {} = entrySlice.actions;
+export const { } = entrySlice.actions;
 export default entrySlice.reducer;
