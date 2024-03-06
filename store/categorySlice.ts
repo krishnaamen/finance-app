@@ -11,12 +11,9 @@ const initialState: CategoryState = {
   categories: [],
 };
 
-export const fetchCategories = createAsyncThunk(
-  "fetchCategories",
-  async () => {
-    return await CategoriesAPI.fetchAll();
-  },
-);
+export const fetchCategories = createAsyncThunk("fetchCategories", async () => {
+  return await CategoriesAPI.fetchAll();
+});
 
 export const createCategory = createAsyncThunk(
   "createCategory",

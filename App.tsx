@@ -26,12 +26,13 @@ function StackNavigationEntry() {
       initialRouteName="EntryList"
       screenOptions={({ route }) => ({
         headerTitle: {
-          AddEntry: 'Add Entry',
-          EntryList: 'Entry List',
-          EntryEdit: 'Entry Edit',
-          EntryDelete: 'Entry Delete'
-        }[route.name]
-      })}>
+          AddEntry: "Add Entry",
+          EntryList: "Entry List",
+          EntryEdit: "Entry Edit",
+          EntryDelete: "Entry Delete",
+        }[route.name],
+      })}
+    >
       <Stack.Screen name="EntryList" component={EntryList} />
       <Stack.Screen name="EntryEdit" component={EntryEdit} />
       <Stack.Screen name="AddEntry" component={AddEntry} />
@@ -51,14 +52,14 @@ export default function App() {
               switch (route.name) {
                 case "Entries": {
                   iconName = focused ? "cash" : "cash-outline";
-                  break
+                  break;
                 }
                 case "Categories": {
                   iconName = focused ? "settings" : "settings-outline";
-                  break
+                  break;
                 }
                 default: {
-                  throw new Error("unknown route")
+                  throw new Error("unknown route");
                 }
               }
 
@@ -66,7 +67,7 @@ export default function App() {
             },
             tabBarActiveTintColor: "tomato",
             tabBarInactiveTintColor: "gray",
-            headerShown: false
+            headerShown: false,
           })}
         >
           <Tab.Screen name="Entries" component={StackNavigationEntry} />

@@ -25,23 +25,28 @@ export function Categories() {
   }, []);
 
   return (
-      <SafeAreaView>
-    <View>
-      <TextInput style={styles.input} onChangeText={setText} value={text} placeholder={"Category"}/>
+    <SafeAreaView>
+      <View>
+        <TextInput
+          style={styles.input}
+          onChangeText={setText}
+          value={text}
+          placeholder={"Category"}
+        />
 
-      <TouchableOpacity
-        style={styles.createButton}
-        onPress={() => dispatch(createCategory(new CreateCategoryDTO(text)))}
-      >
-        <Text style={styles.buttonText}>Create Category</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.createButton}
+          onPress={() => dispatch(createCategory(new CreateCategoryDTO(text)))}
+        >
+          <Text style={styles.buttonText}>Create Category</Text>
+        </TouchableOpacity>
         <FlatList
           data={categories}
           renderItem={({ item }) => <CategoryItem name={item.name} />}
           keyExtractor={(item) => item.id.toString()}
         />
-    </View>
-  </SafeAreaView>
+      </View>
+    </SafeAreaView>
   );
 }
 

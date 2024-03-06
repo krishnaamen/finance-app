@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  Button,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BASE_URL } from "../config";
-import {useDispatch} from "react-redux";
-import {deleteEntry, updateEntry} from "../store/entrySlice";
-import {AppDispatch} from "../store/store";
+import { useDispatch } from "react-redux";
+import { deleteEntry, updateEntry } from "../store/entrySlice";
+import { AppDispatch } from "../store/store";
 
 export type RootStackParamList = {
   AddEntry: undefined;
@@ -78,8 +72,8 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
         {
           text: "OK",
           onPress: async () => {
-              await dispatch(deleteEntry(String(id)));
-              navigation.navigate("EntryList");
+            await dispatch(deleteEntry(String(id)));
+            navigation.navigate("EntryList");
           },
         },
       ],
@@ -96,7 +90,7 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
         category,
       };
       try {
-        await dispatch(updateEntry({id, entity: updatedEntry}));
+        await dispatch(updateEntry({ id, entity: updatedEntry }));
         Alert.alert(
           "Updated",
           "Data updated successfully click ok to go back to the main page.",

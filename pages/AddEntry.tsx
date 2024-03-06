@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { CreateEntryDTO } from "../entities/CreateEntryDTO";
@@ -18,16 +18,16 @@ import { RootStackParamList } from "./EntryEdit";
 
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, "AddEntry">;
 type DetailsScreenNavigationProp = StackNavigationProp<
-    RootStackParamList,
-    "AddEntry"
+  RootStackParamList,
+  "AddEntry"
 >;
 
 interface AddEntryProps {
-    route: DetailsScreenRouteProp;
-    navigation: DetailsScreenNavigationProp;
+  route: DetailsScreenRouteProp;
+  navigation: DetailsScreenNavigationProp;
 }
 
-function AddEntry({ navigation } : AddEntryProps) {
+function AddEntry({ navigation }: AddEntryProps) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
@@ -75,20 +75,19 @@ function AddEntry({ navigation } : AddEntryProps) {
           style={styles.addButton}
           onPress={async () => {
             await dispatch(
-                createEntry(
-                    new CreateEntryDTO(
-                        Number(amount),
-                        new Date(),
-                        "DKK",
-                        name,
-                        description,
-                        category,
-                    ),
+              createEntry(
+                new CreateEntryDTO(
+                  Number(amount),
+                  new Date(),
+                  "DKK",
+                  name,
+                  description,
+                  category,
                 ),
-            )
-            navigation.navigate("EntryList")
-            }
-          }
+              ),
+            );
+            navigation.navigate("EntryList");
+          }}
         >
           <Text style={styles.buttonText}>Create Entry</Text>
         </TouchableOpacity>

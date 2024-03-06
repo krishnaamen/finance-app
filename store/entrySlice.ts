@@ -11,12 +11,9 @@ const initialState: EntryState = {
   entries: [],
 };
 
-export const fetchEntries = createAsyncThunk(
-  "fetchEntries",
-  async () => {
-    return await EntryAPI.fetchAllEntries();
-  },
-);
+export const fetchEntries = createAsyncThunk("fetchEntries", async () => {
+  return await EntryAPI.fetchAllEntries();
+});
 
 export const createEntry = createAsyncThunk(
   "createEntry",
@@ -26,13 +23,13 @@ export const createEntry = createAsyncThunk(
 );
 export const deleteEntry = createAsyncThunk(
   "deleteEntry",
-  async (id : string) => {
+  async (id: string) => {
     return await EntryAPI.deleteEntry(id);
   },
 );
 export const updateEntry = createAsyncThunk(
   "updateEntry",
-  async ({id, entity} : any) => {
+  async ({ id, entity }: any) => {
     return await EntryAPI.updateEntry(id, entity);
   },
 );
@@ -50,18 +47,18 @@ export const entrySlice = createSlice({
     });
     builder.addCase(deleteEntry.fulfilled, (state, action) => {
       state.entries = state.entries.filter(
-        (entry) => String(entry.id) !== action.payload.id
-        );
+        (entry) => String(entry.id) !== action.payload.id,
+      );
     });
     builder.addCase(updateEntry.fulfilled, (state, action) => {
-        state.entries = state.entries.map((entry) => {
-            if (String(entry.id) === action.payload.id) {
-            return action.payload;
-            }
-            return entry;
-        });
+      state.entries = state.entries.map((entry) => {
+        if (String(entry.id) === action.payload.id) {
+          return action.payload;
+        }
+        return entry;
+      });
     });
-  }
+  },
 });
 
 export const {} = entrySlice.actions;

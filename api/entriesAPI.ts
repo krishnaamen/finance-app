@@ -16,10 +16,8 @@ export class EntryAPI {
 
   static async deleteEntry(id: string) {
     const response = await axios.delete(`${this.baseUrl}/${id}`);
-    if (response.status === 200)
-      return { id }
-    else
-      return { id: "" }
+    if (response.status === 200) return { id };
+    else return { id: "" };
   }
 
   static async updateEntry(id: string, entity: any) {

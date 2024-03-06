@@ -3,7 +3,8 @@ import {
   FlatList,
   View,
   StyleSheet,
-  TouchableOpacity, Text,
+  TouchableOpacity,
+  Text,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -42,8 +43,8 @@ const EntryList: React.FC<Props> = ({ navigation }) => {
     <SafeAreaView>
       <View style={styles.container}>
         <TouchableOpacity
-            style={styles.addEntry}
-            onPress={() => navigation.navigate("AddEntry")}
+          style={styles.addEntry}
+          onPress={() => navigation.navigate("AddEntry")}
         >
           <Text style={styles.buttonText}>Add entry</Text>
         </TouchableOpacity>
