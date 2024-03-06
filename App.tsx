@@ -1,10 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import { Alert, Button } from "react-native";
 import EntryList from "./pages/EntryList";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import EntryEdit from "./pages/EntryEdit";
-import EntryDelete from "./pages/EntryDelete";
 import AddEntry from "./pages/AddEntry";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -37,20 +35,6 @@ function StackNavigationEntry() {
       <Stack.Screen name="EntryList" component={EntryList} />
       <Stack.Screen name="EntryEdit" component={EntryEdit} />
       <Stack.Screen name="AddEntry" component={AddEntry} />
-
-      <Stack.Screen
-        name="EntryDelete"
-        component={EntryDelete}
-        options={() => ({
-          headerRight: () => (
-            <Button
-              onPress={() => Alert.alert("For real? :-o")}
-              title="DELETE"
-              color="red"
-            />
-          ),
-        })}
-      />
     </Stack.Navigator>
   );
 }
@@ -69,7 +53,7 @@ export default function App() {
                   iconName = focused ? "cash" : "cash-outline";
                   break
                 }
-                case "Profile": {
+                case "Categories": {
                   iconName = focused ? "settings" : "settings-outline";
                   break
                 }
@@ -86,7 +70,7 @@ export default function App() {
           })}
         >
           <Tab.Screen name="Entries" component={StackNavigationEntry} />
-          <Tab.Screen name="Profile" component={Categories} />
+          <Tab.Screen name="Categories" component={Categories} />
         </Tab.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />

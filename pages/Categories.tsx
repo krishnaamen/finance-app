@@ -13,7 +13,6 @@ import {
 import { AppDispatch, RootState } from "../store/store";
 import { createCategory, fetchCategories } from "../store/categorySlice";
 import { CategoryItem } from "../components/CategoryItem";
-import { Category } from "../entities/category";
 import { CreateCategoryDTO } from "../entities/CreateCategoryDTO";
 
 export function Categories() {
@@ -27,8 +26,9 @@ export function Categories() {
   }, []);
 
   return (
+      <SafeAreaView>
     <View>
-      <TextInput style={styles.input} onChangeText={setText} value={text} />
+      <TextInput style={styles.input} onChangeText={setText} value={text} placeholder={"Category"}/>
 
       <TouchableOpacity
         style={styles.createButton}
@@ -36,20 +36,13 @@ export function Categories() {
       >
         <Text style={styles.buttonText}>Create Category</Text>
       </TouchableOpacity>
-
-      <Button
-        title="Create Category"
-        onPress={() => dispatch(createCategory(new CreateCategoryDTO(text)))}
-      />
-
-      <SafeAreaView>
         <FlatList
           data={categories}
           renderItem={({ item }) => <CategoryItem name={item.name} />}
           keyExtractor={(item) => item.id.toString()}
         />
-      </SafeAreaView>
     </View>
+  </SafeAreaView>
   );
 }
 

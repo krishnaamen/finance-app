@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import { Category } from "../entities/category";
 import { CategoriesAPI } from "../api/categoriesAPI";
 import { CreateCategoryDTO } from "../entities/CreateCategoryDTO";
@@ -12,7 +11,6 @@ const initialState: CategoryState = {
   categories: [],
 };
 
-// create the thunk to make async call, the whole react toolkit is synchronous.
 export const fetchCategories = createAsyncThunk(
   "fetchCategories",
   async (thunkAPI) => {

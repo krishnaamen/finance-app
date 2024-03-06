@@ -1,10 +1,9 @@
 import React from "react";
 import {
-  Button,
   FlatList,
   View,
   StyleSheet,
-  TouchableOpacity,
+  TouchableOpacity, Text,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -42,10 +41,12 @@ const EntryList: React.FC<Props> = ({ navigation }) => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Button
-          title="Add Entry"
-          onPress={() => navigation.navigate("AddEntry")}
-        />
+        <TouchableOpacity
+            style={styles.addEntry}
+            onPress={() => navigation.navigate("AddEntry")}
+        >
+          <Text style={styles.buttonText}>Add entry</Text>
+        </TouchableOpacity>
 
         <FlatList
           data={entries}
@@ -97,11 +98,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginRight: 5,
   },
-
   addButton: {
     display: "flex",
     flexDirection: "row",
     borderRadius: 20,
     margin: 10,
+  },
+  addEntry: {
+    display: "flex",
+    borderRadius: 20,
+    backgroundColor: "#2c6979",
+    margin: 10,
+  },
+  buttonText: {
+    padding: 20,
+    color: "white",
+    fontSize: 30,
   },
 });
