@@ -1,6 +1,5 @@
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
-import { Category } from "../entities/category";
 
 type EntryItemProps = {
   name: string;
@@ -18,7 +17,6 @@ export const EntryItem = (props: EntryItemProps) => {
       <View style={styles.header}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.icons}>
-          <Ionicons style={styles.icon} name="trash" size={22} color="red" />
           <FontAwesome style={styles.icon} name="edit" size={22} color="blue" />
         </View>
       </View>

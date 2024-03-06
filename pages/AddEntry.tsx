@@ -12,13 +12,26 @@ import { CreateEntryDTO } from "../entities/CreateEntryDTO";
 import { createEntry } from "../store/entrySlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/store";
+import { RouteProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "./EntryEdit";
 
-function AddEntry() {
+type DetailsScreenRouteProp = RouteProp<RootStackParamList, "AddEntry">;
+type DetailsScreenNavigationProp = StackNavigationProp<
+    RootStackParamList,
+    "AddEntry"
+>;
+
+interface AddEntryProps {
+    route: DetailsScreenRouteProp;
+    navigation: DetailsScreenNavigationProp;
+}
+
+function AddEntry({ navigation } : AddEntryProps) {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-
   const dispatch = useDispatch<AppDispatch>();
 
   return (
@@ -28,11 +41,11 @@ function AddEntry() {
           selectedValue={category}
           onValueChange={(itemValue) => setCategory(itemValue)}
         >
-          <Picker.Item label="Food" value="1" />
-          <Picker.Item label="Transport" value="2" />
-          <Picker.Item label="Entertainment" value="3" />
-          <Picker.Item label="Bills" value="4" />
-          <Picker.Item label="Others" value="5" />
+          <Picker.Item label="Food" value="Food" />
+          <Picker.Item label="Transport" value="Transport" />
+          <Picker.Item label="Entertainment" value="Entertainment" />
+          <Picker.Item label="Bills" value="Bills" />
+          <Picker.Item label="Others" value="Others" />
         </Picker>
 
         <TextInput
@@ -60,19 +73,21 @@ function AddEntry() {
 
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() =>
-            dispatch(
-              createEntry(
-                new CreateEntryDTO(
-                  Number(amount),
-                  new Date(),
-                  "DKK",
-                  name,
-                  description,
-                  category,
+          onPress={async () => {
+            await dispatch(
+                createEntry(
+                    new CreateEntryDTO(
+                        Number(amount),
+                        new Date(),
+                        "DKK",
+                        name,
+                        description,
+                        category,
+                    ),
                 ),
-              ),
             )
+            navigation.navigate("EntryList")
+            }
           }
         >
           <Text style={styles.buttonText}>Create Entry</Text>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Alert,
-  BackHandler,
   Button,
   StyleSheet,
   TextInput,
@@ -9,13 +8,14 @@ import {
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp } from "@react-navigation/native";
-import AddEntry from "./AddEntry";
-import EntryList from "./EntryList";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BASE_URL } from "../config";
+import {useDispatch} from "react-redux";
+import {deleteEntry} from "../store/entrySlice";
+import {AppDispatch} from "../store/store";
 
-type RootStackParamList = {
+export type RootStackParamList = {
   AddEntry: undefined;
   EntryList: undefined;
   EntryEdit: { entryId: number };
@@ -50,6 +50,8 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
   const [category, setCategory] = useState("");
   const id = route.params.entryId;
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const fetchEntry = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/entries/${id}`);
@@ -66,7 +68,7 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
   const handleDelete = () => {
     Alert.alert(
       "Delete Confirmation",
-      "Are you sure you want to delete this entry",
+      "Are you sure you want to delete this entry?",
       [
         {
           text: "Cancel",
@@ -76,14 +78,8 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
         {
           text: "OK",
           onPress: async () => {
-            try {
-              const response = await fetch(`${BASE_URL}/entry/${id}`, {
-                method: "delete",
-              });
+              await dispatch(deleteEntry(String(id)));
               navigation.navigate("EntryList");
-            } catch (e) {
-              console.log(e);
-            }
           },
         },
       ],
@@ -152,7 +148,7 @@ const EntryEdit: React.FC<Props> = ({ route, navigation }) => {
           onChangeText={setComment}
         />
         <View style={styles.buttons}>
-          <Button onPress={handleUpdate} title="update Now" />
+          <Button onPress={handleUpdate} title="Update now" />
           <Button onPress={handleDelete} title="Delete" />
         </View>
 

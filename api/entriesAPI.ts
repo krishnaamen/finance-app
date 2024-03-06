@@ -6,19 +6,16 @@ export class EntryAPI {
   static baseUrl = BASE_URL + "/entries";
 
   static async fetchAllEntries() {
-    //const response = await axios.get(this.baseUrl);
-    return [{
-      id: 1,
-      date: '2024-03-05 20:40',
-      amount: 100,
-      currency: '1billion danish kroners',
-      name: 'Veselin Ivanov',
-      description: 'description',
-      category: 'category',
-    }];
+    const response = await axios.get(this.baseUrl);
+    return response.data;
   }
   static async createEntry(entry: CreateEntryDTO) {
     const response = await axios.post(this.baseUrl, entry);
     return response.data;
+  }
+
+  static async deleteEntry(id: string) {
+    const response = await axios.delete(`${this.baseUrl}/${id}`);
+    return { id }
   }
 }

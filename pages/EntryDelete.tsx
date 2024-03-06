@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 const EntryDelete: React.FC = () => {
   return (
     <View>
-      <Text>Here you can delete the entry</Text>
+      <Text>Here you can delete the entry?</Text>
     </View>
   );
 };

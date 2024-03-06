@@ -24,6 +24,12 @@ export const createEntry = createAsyncThunk(
     return await EntryAPI.createEntry(entry);
   },
 );
+export const deleteEntry = createAsyncThunk(
+  "deleteEntry",
+  async (id : string) => {
+    return await EntryAPI.deleteEntry(id);
+  },
+);
 
 export const entrySlice = createSlice({
   name: "entry",
@@ -36,7 +42,12 @@ export const entrySlice = createSlice({
     builder.addCase(createEntry.fulfilled, (state, action) => {
       state.entries.push(action.payload);
     });
-  },
+    builder.addCase(deleteEntry.fulfilled, (state, action) => {
+      state.entries = state.entries.filter(
+        (entry) => String(entry.id) !== action.payload.id
+        );
+    });
+  }
 });
 
 export const {} = entrySlice.actions;
