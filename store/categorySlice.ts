@@ -13,14 +13,14 @@ const initialState: CategoryState = {
 
 export const fetchCategories = createAsyncThunk(
   "fetchCategories",
-  async (thunkAPI) => {
+  async () => {
     return await CategoriesAPI.fetchAll();
   },
 );
 
 export const createCategory = createAsyncThunk(
   "createCategory",
-  async (category: CreateCategoryDTO, thunkAPI) => {
+  async (category: CreateCategoryDTO) => {
     return await CategoriesAPI.createCategory(category);
   },
 );
