@@ -5,8 +5,7 @@ import {
   SafeAreaView,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
-  Button,
+  TouchableOpacity
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { CreateEntryDTO } from "../entities/CreateEntryDTO";

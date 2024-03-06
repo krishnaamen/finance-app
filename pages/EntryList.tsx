@@ -38,7 +38,6 @@ const EntryList: React.FC<Props> = ({ navigation }) => {
   React.useEffect(() => {
     dispatch(fetchEntries());
   }, []);
-  console.log(entries)
 
   return (
     <SafeAreaView>

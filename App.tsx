@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import { Alert, Button } from "react-native";
 import EntryList from "./pages/EntryList";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -7,9 +7,6 @@ import EntryEdit from "./pages/EntryEdit";
 import EntryDelete from "./pages/EntryDelete";
 import AddEntry from "./pages/AddEntry";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Profile from "./pages/Profile";
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import About from "./pages/About";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { store } from "./store/store";
 import { Provider } from "react-redux";

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import { Entry } from "../entities/entry";
 import { EntryAPI } from "../api/entriesAPI";
 import { CreateEntryDTO } from "../entities/CreateEntryDTO";
