@@ -63,7 +63,7 @@ export default function App() {
 
             if (route.name === 'Entries') {
               iconName = focused ? 'cash' : 'cash-outline';
-            } else if (route.name === 'Profile') {
+            } else if (route.name === 'Categories') {
               iconName = focused ? 'settings' : 'settings-outline';
             } else {
               iconName = 'alert'; // Default icon, make sure this is valid
@@ -76,7 +76,7 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}>
         <Tab.Screen name="Entries" component={StackNavigationEntry} />
-        <Tab.Screen name="Profile" component={Categories} />
+        <Tab.Screen name="Categories" component={Categories} />
       </Tab.Navigator>
 
 

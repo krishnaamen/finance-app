@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         borderRadius: 20,
-        margin: 10
+        margin: 20,
     }
 
 })
