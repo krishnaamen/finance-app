@@ -8,11 +8,8 @@ import { UpdateEntryDTO } from "../entities/UpdateEntryDTO";
 
 export interface EntryState {
     entries: Entry [];
+    
 
-}
-
-export interface EntryState1 {
-    entry: Entry;
 }
 
 
@@ -20,6 +17,7 @@ const initialState: EntryState = {
     entries: [],
 
 }
+
 
 export const fetchEntries = createAsyncThunk(
     'fetchEntries',
@@ -55,18 +53,35 @@ export const updateEntry = createAsyncThunk(
 export const entrySlice = createSlice({
     name:'entry',
     initialState,
-    reducers:{},
+    reducers:{
+       
+    },
     extraReducers:(builder)=>{
         builder.addCase(fetchEntries.fulfilled,(state,action)=>{
             state.entries = action.payload;
         }),
         builder.addCase(createEntry.fulfilled,(state,action)=>{
             state.entries.push(action.payload);
+        }),
+        builder.addCase(updateEntry.fulfilled,(state,action)=>{
+            const updatedEntry = action.payload;
+            const index = state.entries.findIndex((entry) => entry.id === updatedEntry.id);
+            if (index !== -1) {
+                state.entries[index] = updatedEntry;
+              }
+            state.entries = state.entries
+            .map((entry)=>{
+            
+              if(entry.id === action?.payload.id){
+                entry = action.payload
+              }
+              return entry;
+            })
+
         })
 
-        builder.addCase(fetchSingleEntry.fulfilled,(state,action)=>{
-            state.entry  = action.payload;
-        })
+
+
     }
 
 })

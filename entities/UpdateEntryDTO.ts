@@ -1,9 +1,9 @@
 import { Category } from "./category";
 
 export class UpdateEntryDTO {
-    id: number
+    id: number;
     amount: number;
-    date: Date;
+    date: string;
     currency: string;
     name: string;
     description: string;
@@ -12,7 +12,7 @@ export class UpdateEntryDTO {
     constructor(
         id: number,
         amount: number,
-        date: Date,
+        date: string,
         currency: string,
         name: string,
         description: string,

@@ -27,6 +27,7 @@ export class EntryAPI {
 
     static async updateEntry(entry:UpdateEntryDTO, id:number){
         const response = await axios.put(`${this.baseUrl}/${id}`, entry )
+        return response.data;
     }
 
     

@@ -7,6 +7,11 @@ import EntryList from './EntryList';
 import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BASE_URL } from '../config';
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store/store";
+import { entrySlice } from '../store/entrySlice';
+import { createEntry, fetchEntries } from '../store/entrySlice';
+
 
 
 type RootStackParamList = {
@@ -40,6 +45,17 @@ const [amount, setAmount] = useState('');
 const [description, setDescription] = useState('');
 const [category,setCategory] = useState('');
 const id = route.params.entryId;
+
+
+const entries = useSelector(
+  (state: RootState) => state.entries.entries)
+const dispatch = useDispatch<AppDispatch>();
+
+useEffect(() => {
+  dispatch(fetchEntries())
+}, [])
+
+
 
 
   const fetchEntry = async () => {
@@ -89,7 +105,7 @@ const id = route.params.entryId;
   const handleUpdate = async () => {
     // Make sure all fields are filled before updating
     if (amount && name) {
-      const updatedEntry = { ...currentEntry, amount: parseFloat(amount), name, description,category };
+      const updatedEntry = { ...currentEntry, amount: parseFloat(amount), name, description };
       try {
         const response = await fetch(`${BASE_URL}/entries/${id}`, {
           method: 'patch',
@@ -99,6 +115,7 @@ const id = route.params.entryId;
           body: JSON.stringify(updatedEntry),
         });
         const data = await response.json();
+        
         Alert.alert("Updated","Data updated successfully click ok to go back to the main page.",[
           { text: 'OK', onPress: () => navigation.navigate('EntryList') }
         ]);
@@ -130,14 +147,6 @@ const id = route.params.entryId;
         placeholder={currentEntry?.name}
         value={name}
         onChangeText={setName}
-        
-      />
-      <Text style={styles.labelText}>Category</Text>
-      <TextInput
-        style={styles.input}
-        placeholder={currentEntry?.category?.name}
-        value={category?.name}
-        onChangeText={setCategory}
         
       />
       <Text style={styles.labelText}>Description</Text>
